@@ -6,22 +6,18 @@
 
 //variables
 $storeniboss = "Tindahan ni Bossing";
-$products = [
-    ["name" => "Marlboro", "price" => 180, "stock" => 38],
-    ["name" => "Camel", "price"=> 135, "stock"    => 45],
-    ["name" => "Mighty", "price" => 150, "stock" => 40]
-];
+
+//include products from a separate file
+require "products.php";
 
 //type juggling
 $taxngbir = '0.08';
 
 //total items
-$totalsigarilyasatmani = 3;
-
-//operator
-$price1 = $products[0]["price"] + ($products[0]["price"] * $taxngbir);
-$price2 = $products[1]["price"] + ($products[1]["price"] * $taxngbir);
-$price3 = $products[2]["price"] + ($products[2]["price"] * $taxngbir);
+$totalsigarilyo = 0
+foreach ($products as $product) {
+    $totalsigarilyo = $totalsigarilyo + 1;
+}
 
 ?>
 <!DOCTYPE html>
@@ -77,6 +73,14 @@ $price3 = $products[2]["price"] + ($products[2]["price"] * $taxngbir);
             color: #ffcccc;
         }
 
+        .low {
+            color: #ff7777;
+        }
+
+        .high {
+            color: #66ff99;
+        }
+        
         .footer {
             margin-top: 20px;
             text-align: center;
@@ -93,7 +97,7 @@ $price3 = $products[2]["price"] + ($products[2]["price"] * $taxngbir);
             <b>Disclaimer:</b> This is a school activity. Smoking is dangerous and is bad for your health.
         </div>
 
-        <p>Total Products: <b><?php echo $totalsigarilyasatmani; ?></b></p>
+        <p>Total Products: <b><?php echo $totalsigarilyo; ?></b></p>
 
         <table>
             <tr>
@@ -101,8 +105,22 @@ $price3 = $products[2]["price"] + ($products[2]["price"] * $taxngbir);
                 <th>Base Price</th>
                 <th>Price + Tax</th>
                 <th>Stock</th>
+                <th>Status</th>
             </tr>
 
+            <?php
+            foreach ($products as $item) {
+                //new computation for tax
+                $finalprice = $item["price"] + ($item["price"] * $taxngbir);
+
+                //added new variable 'stock'
+                if ($item["stock"] < 40) {
+                    $status = "<span class="low">Low Stock</span>
+                } else {
+                    $status = "<span class="high">In Stock</span>;
+                }
+            ?>
+                    
             <tr>
                 <td><?php echo $products[0]["name"]; ?></td>
                 <td><?php echo $products[0]["price"]; ?></td>
@@ -123,6 +141,8 @@ $price3 = $products[2]["price"] + ($products[2]["price"] * $taxngbir);
                 <td><?php echo $price3; ?></td>
                 <td><?php echo $products[2]["stock"]; ?></td>
             </tr>
+            <?php } ?>
+
         </table>
 
     <div class="footer">
@@ -131,4 +151,5 @@ $price3 = $products[2]["price"] + ($products[2]["price"] * $taxngbir);
 
     </div>
 </body>
+
 </html>
