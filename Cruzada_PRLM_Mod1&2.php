@@ -119,26 +119,13 @@ foreach ($products as $product) {
                     $status = "<span class='high'>In Stock</span>";
                 }
             ?>
-                    
-            <tr>
-                <td><?php echo $products[0]["name"]; ?></td>
-                <td><?php echo $products[0]["price"]; ?></td>
-                <td><?php echo $price1; ?></td>
-                <td><?php echo $products[0]["stock"]; ?></td>
-            </tr>
 
             <tr>
-                <td><?php echo $products[1]["name"]; ?></td>
-                <td><?php echo $products[1]["price"]; ?></td>
-                <td><?php echo $price2; ?></td>
-                <td><?php echo $products[1]["stock"]; ?></td>
-            </tr>
-
-            <tr>
-                <td><?php echo $products[2]["name"]; ?></td>
-                <td><?php echo $products[2]["price"]; ?></td>
-                <td><?php echo $price3; ?></td>
-                <td><?php echo $products[2]["stock"]; ?></td>
+                <td><?php echo $item["name"]; ?></td>
+                <td><?php echo $item["price"]; ?></td>
+                <td><?php echo $finalprice; ?></td>
+                <td><?php echo $item["stock"]; ?></td>
+                <td><?php echo $status; ?></td>
             </tr>
             <?php } ?>
 
@@ -150,5 +137,6 @@ foreach ($products as $product) {
     </div>
 </body>
 </html>
+
 
 
