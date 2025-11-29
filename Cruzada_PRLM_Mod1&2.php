@@ -14,7 +14,7 @@ require "products.php";
 $taxngbir = '0.08';
 
 //total items
-$totalsigarilyo = 0
+$totalsigarilyo = 0;
 foreach ($products as $product) {
     $totalsigarilyo = $totalsigarilyo + 1;
 }
@@ -153,3 +153,4 @@ foreach ($products as $product) {
 </body>
 
 </html>
+
