@@ -3,7 +3,6 @@
 <!-- 6DWEB -->
 
 <?php 
-
 //variables
 $storeniboss = "Tindahan ni Bossing";
 
@@ -115,9 +114,9 @@ foreach ($products as $product) {
 
                 //added new variable 'stock'
                 if ($item["stock"] < 40) {
-                    $status = "<span class="low">Low Stock</span>
+                    $status = "<span class='low'>Low Stock</span>";
                 } else {
-                    $status = "<span class="high">In Stock</span>;
+                    $status = "<span class='high'>In Stock</span>";
                 }
             ?>
                     
@@ -148,9 +147,8 @@ foreach ($products as $product) {
     <div class="footer">
         <p>Created by Vince Raiezen M. Cruzada </p>
     </div>
-
     </div>
 </body>
-
 </html>
+
 
