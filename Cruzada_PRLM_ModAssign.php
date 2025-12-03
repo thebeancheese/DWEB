@@ -1,21 +1,26 @@
-<!-- Cruzada, Vince Raiezen M. -->
-<!-- WD-202 -->
-<!-- 6DWEB -->
-
 <?php 
-//variables
-$storeniboss = "Tindahan ni Bossing";
+declare(strict_types=1);
 
 //include products from a separate file
 require "products.php";
 
-//type juggling
-$taxngbir = '0.08';
+$storeniboss = "Tindahan ni Bossing";
 
-//total items
-$totalsigarilyo = 0;
-foreach ($products as $product) {
-    $totalsigarilyo = $totalsigarilyo + 1;
+//global tax rate
+$taxngbir = 12;
+
+//functions
+function get_reorder_message(int $stock): string {
+    return ($stock < 10) ? "Yes" : "No";
+}
+
+function get_total_value(float $price, int $quantity): float {
+    return ($price * $quantity);
+}
+
+function get_tax_due(float $price, int $quantity, int $tax_percentage = 0): float {
+    $total = $price * $quantity;
+    return $total * ($tax_percentage / 100);
 }
 
 ?>
@@ -23,113 +28,35 @@ foreach ($products as $product) {
 <html>
 <head>
     <title><?php echo $storeniboss; ?></title>
-
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-            background: #111;
-            color: #fff;
-            padding: 20px;
-            background-image: linear-gradient(to right, #0d0d0d, #1f1f1f)
-        }
-
-        .container {
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 10px;
-            width: 85%;
-            margin: auto;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        th, td {
-            padding: 12px;
-            border: 1px solid;
-            text-align: center;
-        }
-
-        th {
-            background: rgba(255,255,255,0.2);
-        }
-
-        .warning {
-            background: #660000;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            color: #ffcccc;
-        }
-
-        .low {
-            color: #ff7777;
-        }
-
-        .high {
-            color: #66ff99;
-        }
-        
-        .footer {
-            margin-top: 20px;
-            text-align: center;
-            opacity: 0.8;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style3.css">
 </head>
 
 <body>
-    <div class="container">
-        <h1><?php echo $storeniboss; ?></h1>
+    <h1><?php echo $storeniboss; ?></h1>
+    
+    <table>
+        <tr>
+            <th>Brand</th>
+            <th>Stock</th>
+            <th>Reorder</th>
+            <th>Total Value</th>
+            <th>Tax Due</th>
+        </tr>
 
-        <div class="warning">
-            <b>Disclaimer:</b> This is a school activity. Smoking is dangerous and is bad for your health.
-        </div>
+        <?php foreach ($oyliragis as $name => $data): 
+            $price = $data['price'];
+            $stock = $data['stock'];
+        ?>
+        <tr>
+            <td><?= $name ?></td>
+            <td><?= $stock ?></td>
+            <td><?= get_reorder_message($stock) ?></td>
+            <td>₱<?= number_format(get_total_value($price, $stock), 2) ?></td>
+            <td>₱<?= number_format(get_tax_due($price, $stock, $taxngbir), 2) ?></td>
+        </tr>
+        <?php endforeach; ?>
 
-        <p>Total Products: <b><?php echo $totalsigarilyo; ?></b></p>
-
-        <table>
-            <tr>
-                <th>Brand</th>
-                <th>Base Price</th>
-                <th>Price + Tax</th>
-                <th>Stock</th>
-                <th>Status</th>
-            </tr>
-
-            <?php
-            foreach ($products as $item) {
-                //new computation for tax
-                $finalprice = $item["price"] + ($item["price"] * $taxngbir);
-
-                //added new variable 'stock'
-                if ($item["stock"] < 40) {
-                    $status = "<span class='low'>Low Stock</span>";
-                } else {
-                    $status = "<span class='high'>In Stock</span>";
-                }
-            ?>
-
-            <tr>
-                <td><?php echo $item["name"]; ?></td>
-                <td><?php echo $item["price"]; ?></td>
-                <td><?php echo $finalprice; ?></td>
-                <td><?php echo $item["stock"]; ?></td>
-                <td><?php echo $status; ?></td>
-            </tr>
-            <?php } ?>
-
-        </table>
+    </table>
 
     <div class="footer">
         <p>Created by Vince Raiezen M. Cruzada </p>
